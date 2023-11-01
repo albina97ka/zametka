@@ -1,4 +1,5 @@
 package com.example.notes;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -8,11 +9,9 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
-
 public class MainActivity extends AppCompatActivity {
-
     public static final int NOTE_ACTIVITY_REQUEST_CODE = 1;
-    public ArrayList<Zametka> NoteList;
+    public ArrayList<Notes> NoteList;
     Adapter adapter;
 
     @Override
@@ -20,19 +19,19 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        DataBase.createInstance(this);
-        if(DataBase.info()){
-            NoteList = DataBase.getInstance().getItem("listOfItem");
+        Database.createInstance(this);
+        if(Database.info()){
+            NoteList = Database.getInstance().getItem("list");
         } else {
             NoteList = new ArrayList<>();
         }
 
-        ListView listView = findViewById(R.id.listItem);
+        ListView listView = findViewById(R.id.list);
         adapter = new Adapter(this, android.R.layout.simple_expandable_list_item_1, NoteList);
         listView.setAdapter(adapter);
 
         listView.setOnItemClickListener((parent, v, position, id) -> {
-            Intent intent = new Intent(MainActivity.this, NoteActivity.class);
+            Intent intent = new Intent(MainActivity.this, MainActivity2.class);
             intent.putExtra("item", NoteList.get(position));
             intent.putExtra("position", position);
             startActivityForResult(intent, NOTE_ACTIVITY_REQUEST_CODE);
@@ -46,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onClickButtonAdd(View view){
-        Zametka a = new Zametka("Заметка", "Текст заметки");
+        Notes a = new Notes("Заметка", "Текст заметки");
         NoteList.add(a);
         adapter.notifyDataSetChanged();
     }
@@ -57,14 +56,12 @@ public class MainActivity extends AppCompatActivity {
 
         if (requestCode == NOTE_ACTIVITY_REQUEST_CODE) {
             if (resultCode == RESULT_OK && data != null) {
-                Zametka newItem = (Zametka) data.getSerializableExtra("newItem");
+                Notes newItem = (Notes) data.getSerializableExtra("newItem");
                 int position1 = data.getIntExtra("position1", -1);
                 NoteList.set(position1, newItem);
-                DataBase.getInstance().addItem(NoteList);
+                Database.getInstance().addItem(NoteList);
                 adapter.notifyDataSetChanged();
             }
         }
     }
-
-
 }

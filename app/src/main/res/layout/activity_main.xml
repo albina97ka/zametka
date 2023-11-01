@@ -7,12 +7,12 @@
     tools:context=".MainActivity">
 
     <ListView
-        android:id="@+id/listItem"
+        android:id="@+id/list"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
     <Button
-        android:id="@+id/ButtonAdd"
+        android:id="@+id/but"
         android:text="Добавить"
         android:onClick="onClickButtonAdd"
         android:layout_width="wrap_content"

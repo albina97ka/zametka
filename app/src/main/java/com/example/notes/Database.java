@@ -9,48 +9,48 @@ import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
-public class DataBase {
-    static DataBase instance;
+public class Database {
+    static Database instance;
     static SharedPreferences sharedPref;
-    private DataBase(Activity t){
+    private Database(Activity t){
         sharedPref = t.getPreferences(Context.MODE_PRIVATE);
     }
 
-    static DataBase createInstance(Activity t){
+    static Database createInstance(Activity t){
         if(instance == null){
-            instance = new DataBase(t);
+            instance = new Database(t);
         }
         return instance;
     }
 
     static Boolean info(){
-        if(sharedPref.contains("listOfItem")){
+        if(sharedPref.contains("list")){
             return true;
         } else {
             return false;
         }
     }
 
-    void addItem(ArrayList<Zametka> list){
+    void addItem(ArrayList<Notes> list){
         Gson gson = new Gson();
         String jsonList = gson.toJson(list);
         SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putString("listOfItem", jsonList);
+        editor.putString("list", jsonList);
         editor.apply();
     }
 
-    ArrayList<Zametka> getItem(String name){
+    ArrayList<Notes> getItem(String name){
         String jsonList = sharedPref.getString("listOfItem", null);
         if (jsonList != null) {
             Gson gson = new Gson();
-            Type type = new TypeToken<ArrayList<Zametka>>() {}.getType();
-            ArrayList<Zametka> list = gson.fromJson(jsonList, type);
+            Type type = new TypeToken<ArrayList<Notes>>() {}.getType();
+            ArrayList<Notes> list = gson.fromJson(jsonList, type);
             return list;
         }
         return null;
     }
 
-    static DataBase getInstance(){
+    static Database getInstance(){
         return instance;
     }
 }

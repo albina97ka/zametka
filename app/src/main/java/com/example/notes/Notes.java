@@ -2,10 +2,10 @@ package com.example.notes;
 
 import java.io.Serializable;
 
-public class Zametka implements Serializable {
+public class Notes implements Serializable {
     private String title;
     private String txt;
-    Zametka(String title, String txt){
+    Notes(String title, String txt){
         this.title = title;
         this.txt = txt;
     }

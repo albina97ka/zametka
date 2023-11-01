@@ -5,22 +5,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".NoteActivity">
+    tools:context=".MainActivity2">
 
     <EditText
-        android:id="@+id/titleEditor"
+        android:id="@+id/etxt1"
         android:layout_width="match_parent"
         android:layout_height="110dp"
         android:gravity="center"
         android:textColor="@color/black"
-        app:layout_constraintBottom_toTopOf="@+id/textEditor"
+        app:layout_constraintBottom_toTopOf="@+id/etxt2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/textEditor"
-        android:layout_width="409dp"
+        android:id="@+id/etxt2"
+        android:layout_width="410dp"
         android:layout_height="53dp"
         android:layout_marginBottom="544dp"
         android:gravity="top"
